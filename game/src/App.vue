@@ -1,13 +1,11 @@
 <template>
 <div id="app">
 
-  <div id="fullBody">
     <div id="content">
       <app-header/>
       <router-view/>
     </div>
   <app-footer/>
-  </div>
 </div>
 </template>
 
@@ -25,26 +23,23 @@ export default {
 </script>
 
 <style>
-#fullBody {
-    min-height: 100%;
-    width:100%;
-    position:relative;
+
+html {
+  height: 100%;
+  box-sizing: border-box;
 }
 
-#content {
-  padding: 0px 0px 50px 0px;
-  font-family: 'Arvo';
-  font-size: 16px;
-  position: relative;
-}
-html {
-  height:100%
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
 body {
-  padding: 0px;
-  margin:0px;
-  height:100%;
+  position: relative;
+  margin: 0;
+  padding-bottom: 6rem;
+  min-height: 100%;
 }
 
 #app {
@@ -53,6 +48,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 0px;
 }
 </style>

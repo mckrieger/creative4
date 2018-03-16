@@ -22,20 +22,35 @@ export default {
 li {
   font-size: 30px;
   list-style-type:none;
-
 }
+
 h1, h2 {
   font-weight: normal;
 }
 ul {
   list-style-type: none;
   padding: 0;
+  font-family: 'Exo', serif;
+
 }
 li {
   display: inline-block;
   margin: 0 10px;
+  font-family: 'Exo', serif;
+
 }
 a {
-  color: #42b983;
+  color: black;
+  font-family: 'Exo', serif;
+
+
 }
+a:visited {
+  color: black;
+}
+img {
+  margin-top: 10vw;
+}
+
+
 </style>

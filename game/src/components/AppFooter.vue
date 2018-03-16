@@ -26,6 +26,10 @@
   text-decoration: none;
 }
 
+a.footer:visited{
+  color: gray;
+}
+
 p.footer {
   padding-bottom:15px;
 }
