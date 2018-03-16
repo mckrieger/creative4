@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Board from '@/components/Board'
+import Game from '@/components/Game'
 import Splash from '@/components/Splash'
 
 
@@ -15,8 +15,8 @@ export default new Router({
     },
     {
       path: '/game',
-      name: 'Board',
-      component: Board
+      name: 'Game',
+      component: Game
     }
   ]
 })

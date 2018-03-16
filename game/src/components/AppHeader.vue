@@ -15,13 +15,13 @@
 
 <style scoped>
  /*Strip the ul of padding and list styling*/
- .clear {
-     float: clear;
- }
+
  nav {
      display: grid;
      background-color: #333;
-     margin-bottom:10px;
+     margin-bottom:0px;
+     font-family: Exo,sans-serif;
+     height:10vh;
  }
  ul {
      list-style-type:none;

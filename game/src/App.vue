@@ -38,7 +38,7 @@ html {
 body {
   position: relative;
   margin: 0;
-  padding-bottom: 6rem;
+  padding-bottom: 1rem;
   min-height: 100%;
 }
 

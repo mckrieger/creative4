@@ -14,16 +14,17 @@
 
  #footer {
   list-style-type: none;
-  height: 50px;
+  height: 10vh;
   width: 100vw;
   bottom:0;
-  margin-top:5px;
+  margin-top:0px;
   position:absolute;
   overflow:hidden;
   background-color: #333;
   text-align: center;
   color: #FFF;
   text-decoration: none;
+  font-family: Exo, sans-serif;
 }
 
 a.footer:visited{

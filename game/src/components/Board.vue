@@ -1,21 +1,6 @@
 <template>
-  <div class="todo">
-    <h1>A List of Things To Do</h1>
-    <form v-on:submit.prevent="addItem">
-      <input type="text" v-model="text">
-      <button type="submit">Add</button>
-    </form>
-    <div class="controls">
-      <button v-on:click="showAll()">Show All</button>
-      <button v-on:click="showActive()">Show Active</button>
-      <button v-on:click="showCompleted()">Show Completed</button>
-      <button v-on:click="deleteCompleted()">Delete Completed</button>
-    </div>
-    <ul>
-      <li v-for="item in filteredItems" draggable="true" v-on:dragstart="dragItem(item)" v-on:dragover.prevent v-on:drop="dropItem(item)">
-	<input type="checkbox" v-model="item.completed" v-on:click="completeItem(item)" /><label v-bind:class="{ completed: item.completed }">{{ item.text }}</label><button v-on:click="deleteItem(item)" class="delete">X</button>
-      </li>
-    </ul>
+  <div class="board">
+
   </div>
 </template>
 
@@ -29,19 +14,7 @@
         move: '',
       }
     },
-    computed: {
-      items: function() {
-        return this.$store.getters.items;
-      },
-      activeItems: function() {
-        return this.items.filter(function(item) {
-          return !item.completed;
-        });
-      },
-    },
-    created: function() {
-     this.getItems();
-     },
+
      methods: {
        getItems: function() {
          this.$store.dispatch('getItems');
@@ -71,54 +44,9 @@
 </script>
 
 <style scoped>
- ul {
-     list-style: none;
+ .board {
+
+     background-color:black;
  }
 
- li {
-     background: #f3f3f3;
-     width: 500px;
-     min-height: 30px;
-     padding: 10px;
-     margin-bottom: 10px;
-     font-size: 1em;
-     display: flex;
-     align-items: center;
- }
-
- .delete {
-     display: none;
-     margin-left: auto;
- }
-
- li:hover .delete {
-     display: block;
- }
-
- label {
-     width: 400px;
- }
-
- .completed {
-     text-decoration: line-through;
- }
-
- /* Form */
-
- input[type=checkbox] {
-     transform: scale(1.5);
-     margin-right: 10px;
- }
-
- input[type=text] {
-     font-size: 1em;
- }
-
- button {
-     font-family: 'Arvo';
-     font-size: 1em;
- }
- .controls {
-     margin-top: 20px;
- }
 </style>

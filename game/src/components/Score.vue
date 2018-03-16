@@ -1,24 +1,24 @@
 <template>
-  <div class="controls">
+  <div class="scoreboard">
+
   </div>
 </template>
 
-
-
 <script>
-//import Board from './Board';
-
-
 
   export default {
-    name: 'Controls',
+    name: 'Score',
     components: {
-
     },
     data() {
       return {
         move: '',
       }
+    },
+    computed: {
+      /*items: function() {
+        return this.$store.getters.items;
+      },*/
     },
      methods: {
        getItems: function() {
@@ -44,13 +44,13 @@
          });
        },
     },
+
   }
 </script>
 
 <style scoped>
- .controls {
+ .scoreboard {
+
     background-color:gray;
-
-
  }
 </style>
