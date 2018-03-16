@@ -24,9 +24,6 @@ li {
   list-style-type:none;
 }
 
-h1, h2 {
-  font-weight: normal;
-}
 ul {
   list-style-type: none;
   padding: 0;
@@ -50,6 +47,7 @@ a:visited {
 }
 img {
   margin-top: 10vw;
+  padding-right:10px;
 }
 
 
