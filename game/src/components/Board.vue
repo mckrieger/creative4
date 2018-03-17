@@ -53,7 +53,7 @@ import store from '../store';
 
 <style scoped>
  .board {
-     background-color:black;
+     background-color:darkGray;
      display: grid;
      grid-gap: 2px;
      grid-template-columns: repeat(10, 1fr);
@@ -73,8 +73,8 @@ import store from '../store';
     color: blue;
     }
   .empty{
-    background-color: white;
-    color: white;
+    background-color: #FFF;
+    color: gray;
   }
   .goal {
     background-color: yellow;

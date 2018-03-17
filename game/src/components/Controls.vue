@@ -2,13 +2,13 @@
   <div class="controls">
   <h3>Controls</h3>
   <div id="buttons">
-  <img id="up" v-on:click="makeMove('up')" src="../assets/arrow2.png"/>
+  <img id="up" v-on:click="makeMove('up')" src="../assets/arrow3.png"/>
   <div id="center">
-    <img id="left" v-on:click="makeMove('left')" src="../assets/arrow2.png"/>
+    <img id="left" v-on:click="makeMove('left')" src="../assets/arrow3.png"/>
     <span id="space"></span>
-    <img id="right" v-on:click="makeMove('right')" src="../assets/arrow2.png"/>
+    <img id="right" v-on:click="makeMove('right')" src="../assets/arrow3.png"/>
   </div>
-  <img id="down" v-on:click="makeMove('down')" src="../assets/arrow2.png"/>
+  <img id="down" v-on:click="makeMove('down')" src="../assets/arrow3.png"/>
   </div>
   </div>
 </template>
@@ -16,7 +16,7 @@
 
 
 <script>
-//import Board from './Board';
+import store from '../store';
 
 
 
@@ -32,29 +32,8 @@
     },
      methods: {
        makeMove: function(direction) {
-          console.log(direction);
-       },
-       getItems: function() {
-         this.$store.dispatch('getItems');
-       },
-       addItem: function() {
-         this.$store.dispatch('addItem', {
-  	      text: this.text,
-  	       completed: false
-         });
-       },
-       completeItem: function(item) {
-         this.$store.dispatch('updateItem', {
-           id: item.id,
-  	       text: item.text,
-  	       completed: !item.completed,
-  	       orderChange: false,
-         });
-       },
-       deleteItem: function(item) {
-         this.$store.dispatch('deleteItem',{
-          id: item.id
-         });
+          store.dispatch('makeMove', direction);
+          store.dispatch('getItems');
        },
     },
   }
@@ -97,9 +76,12 @@
     width: 7vw;
     opacity: 0.5;
     filter: alpha(opacity=50);
+    transition:opacity .7s;
  }
+
  img:hover{
     opacity: 1;
     filter: alpha(opacity=100);
+    transition: opacity .7s;
  }
 </style>

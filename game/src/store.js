@@ -15,45 +15,53 @@ const store= new Vuex.Store({
     items: state => state.items,
   },
   mutations: {
-    setItems: (state, items) => {
+    setItems: (state, {items}) => {
       state.items = items;
+      console.log('items have been set');
     },
   },
   actions: {
-    setupItems(){
+    setupItems: function(){
       console.log("setting up");
       axios.get("/api/setup").then(response => {
         console.log("got Response");
         console.log(response.data);
-        commit('setItems', response.data);
+        commit('setItems', {items:response.data});
       	return true;
       }).then(console.log(this.getters.items)).catch(err => {
       });
     },
-    getItems(context) {
+    getItems: function(context) {
       console.log("getting items");
       axios.get("/api/items").then(response => {
-	       commit('setItems', response.data);
-	        return true;
+        console.log('have items');
+	       context.commit('setItems', {items: response.data});
       }).catch(err => {
       });
     },
-    addItem(context, item) {
+    addItem: function(context, item) {
       axios.post("/api/items", item).then(response => {
-	return context.dispatch('getItems');
+	       dispatch('getItems');
       }).catch(err => {
       });
     },
-    updateItem(context, item) {
+    updateItem: function(context, item) {
       axios.put("/api/items/" + item.id, item).then(response => {
-	return true;
+	       dispatch('getItems');
       }).catch(err => {
       });
     },
-    deleteItem(context, item) {
+    deleteItem: function(context, item) {
       axios.delete("/api/items/" + item.id).then(response => {
-	return context.dispatch('getItems');
+	       dispatch('getItems');
       }).catch(err => {
+      });
+    },
+    makeMove: function(context, move) {
+      axios.post("/api/move", {direction:move}).then(response => {
+        context.dispatch('getItems');
+      }).catch(err=> {
+        console.log(err);
       });
     }
   }
