@@ -1,6 +1,6 @@
 <template>
   <div class="board">
-    <div v-for="item in items" v-bind:class="{you: item != 'you', them: item=='them', empty: item=='empty', power: item=='power'}" >
+    <div v-for="item in items" v-bind:class="{you: item == 'you', them: item=='them', empty: item=='empty', power: item=='power'}" >
     </div>
   </div>
 </template>
@@ -23,15 +23,15 @@ import store from '../store';
     },
      methods: {
        getItems: function() {
-         store.commit('getItems');
+         store.dispatch('getItems');
        },
        addItem: function(type) {
-         store.commit('addItem', {
+         store.dispatch('addItem', {
   	      text: type
          });
        },
        completeItem: function(item) {
-         store.commit('updateItem', {
+         store.dispatch('updateItem', {
            id: item.id,
   	       text: item.text,
   	       completed: !item.completed,
@@ -39,13 +39,13 @@ import store from '../store';
          });
        },
        deleteItem: function(item) {
-         store.commit('deleteItem',{
+         store.dispatch('deleteItem',{
           id: item.id
          });
        },
     },
     created: function() {
-      store.commit('setupItems');
+      store.dispatch('setupItems');
    },
 
   }
@@ -58,6 +58,7 @@ import store from '../store';
      grid-gap: 2px;
      grid-template-columns: repeat(10, 1fr);
      grid-template-rows: repeat(10, 1fr);
+     padding:2px;
      }
   .you {
     background-color: green;

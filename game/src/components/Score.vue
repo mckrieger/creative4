@@ -1,6 +1,15 @@
 <template>
   <div class="scoreboard">
-
+    <div class="description"><span class="mainText">It's <p class="you">you</p> vs. <p class="them">them</p>.<br> Actually,
+      they're mostly just chasing you, and if they catch you, they'll kill you.
+      But they only move when you do. Sometimes
+      it takes some time before the <p class="goal">goal</p> shows up, so use the <p class="power">power-ups</p> to fight back.
+      </span></div>
+    <div class="stats">
+      <div class="moves"><h3>Moves Taken: {{moves}}</h3></div>
+      <div class="score"><h3>Your Score: {{score}}</h3></div>
+      <div class="highscore"><h3>Overall HighScore: {{highscore}}</h3></div>
+    </div>
   </div>
 </template>
 
@@ -12,7 +21,9 @@
     },
     data() {
       return {
-        move: '',
+        highscore: 0,
+        score: 0,
+        moves: 0,
       }
     },
     computed: {
@@ -47,10 +58,48 @@
 
   }
 </script>
-
+//#17B617;
+//#CF1919
 <style scoped>
  .scoreboard {
-
+    position:relative;
     background-color:gray;
+ }
+
+ .you {
+    color: #A1E1A1;
+    display: inline;
+ }
+
+ .them {
+    color:#F0B9B9;
+    display: inline;
+
+ }
+
+ .goal{
+    color:yellow;
+    display: inline;
+
+ }
+
+ .power {
+    color: #95C5F4;
+    display: inline;
+
+ }
+ .mainText {
+    color: white;
+ }
+ .description {
+    font-family: 'Exo', sans-serif;
+    margin:5px;
+    margin-bottom:40%;
+    margin-top:5%
+ }
+ .stats {
+    text-align:center;
+    padding-left:15px;
+    bottom:0;
  }
 </style>

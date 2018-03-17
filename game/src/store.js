@@ -7,7 +7,7 @@ Vue.use(Vuex);
 
 const store= new Vuex.Store({
   state: {
-    items: [],
+    items: ['empty','empty','you'],
     score: 0,
     power: '',
   },
@@ -15,26 +15,26 @@ const store= new Vuex.Store({
     items: state => state.items,
   },
   mutations: {
+    setItems: (state, items) => {
+      state.items = items;
+    },
+  },
+  actions: {
     setupItems(){
       console.log("setting up");
       axios.get("/api/setup").then(response => {
         console.log("got Response");
         console.log(response.data);
-        context.commit('setItems', response.data);
-      	state.items= response.data;
-        console.log(state.items);
+        commit('setItems', response.data);
       	return true;
       }).then(console.log(this.getters.items)).catch(err => {
       });
     },
-    setItems (state, items) {
-      state.items = items;
-    },
     getItems(context) {
       console.log("getting items");
       axios.get("/api/items").then(response => {
-	context.commit('setItems', response.data);
-	return true;
+	       commit('setItems', response.data);
+	        return true;
       }).catch(err => {
       });
     },
@@ -56,8 +56,6 @@ const store= new Vuex.Store({
       }).catch(err => {
       });
     }
-  },
-  actions: {
   }
 });
 export default store;
