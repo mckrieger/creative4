@@ -5,14 +5,28 @@ import axios from 'axios';
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+const store= new Vuex.Store({
   state: {
     items: [],
+    score: 0,
+    power: '',
   },
   getters: {
     items: state => state.items,
   },
   mutations: {
+    setupItems(){
+      console.log("setting up");
+      axios.get("/api/setup").then(response => {
+        console.log("got Response");
+        console.log(response.data);
+        context.commit('setItems', response.data);
+      	state.items= response.data;
+        console.log(state.items);
+      	return true;
+      }).then(console.log(this.getters.items)).catch(err => {
+      });
+    },
     setItems (state, items) {
       state.items = items;
     },
@@ -46,3 +60,4 @@ export default new Vuex.Store({
   actions: {
   }
 });
+export default store;

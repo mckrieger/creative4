@@ -1,12 +1,14 @@
 <template>
   <div class="board">
-
+    <div v-for="item in items" v-bind:class="{you: item != 'you', them: item=='them', empty: item=='empty', power: item=='power'}" >
+    </div>
   </div>
 </template>
 
 
 
 <script>
+import store from '../store';
   export default {
     name: 'Board',
     data() {
@@ -14,19 +16,22 @@
         move: '',
       }
     },
-
+    computed: {
+      items: function() {
+        return store.getters.items;
+      }
+    },
      methods: {
        getItems: function() {
-         this.$store.dispatch('getItems');
+         store.commit('getItems');
        },
-       addItem: function() {
-         this.$store.dispatch('addItem', {
-  	      text: this.text,
-  	       completed: false
+       addItem: function(type) {
+         store.commit('addItem', {
+  	      text: type
          });
        },
        completeItem: function(item) {
-         this.$store.dispatch('updateItem', {
+         store.commit('updateItem', {
            id: item.id,
   	       text: item.text,
   	       completed: !item.completed,
@@ -34,19 +39,47 @@
          });
        },
        deleteItem: function(item) {
-         this.$store.dispatch('deleteItem',{
+         store.commit('deleteItem',{
           id: item.id
          });
        },
     },
+    created: function() {
+      store.commit('setupItems');
+   },
 
   }
 </script>
 
 <style scoped>
  .board {
-
      background-color:black;
- }
+     display: grid;
+     grid-gap: 2px;
+     grid-template-columns: repeat(10, 1fr);
+     grid-template-rows: repeat(10, 1fr);
+     }
+  .you {
+    background-color: green;
+    color: green;
+    }
+  .them {
+    background-color: red;
+    color: red;
+  }
+    .power {
+    background-color: blue;
+    color: blue;
+    }
+  .empty{
+    background-color: white;
+    color: white;
+  }
+  .goal {
+    background-color: yellow;
+    color: yellow;
+  }
+
+
 
 </style>

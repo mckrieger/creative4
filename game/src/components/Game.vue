@@ -17,6 +17,11 @@ import Score from './Score';
 
   export default {
     name: 'Game',
+    data() {
+      return {
+        gameState: '',
+      }
+    },
     components: {
       Board,
       Controls,
