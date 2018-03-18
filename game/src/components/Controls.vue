@@ -30,11 +30,19 @@ import store from '../store';
         move: '',
       }
     },
+    computed: {
+      status: function() {
+        return store.getters.status;
+      }
+    },
      methods: {
        makeMove: function(direction) {
+          if (store.getters.status === 'won' || store.getters.status === 'lost'){
+          console.log("Don't push buttons when you aren't playing");
+          } else {
           store.dispatch('makeMove', direction);
-          store.dispatch('getItems');
-          console.log(require.main.filename);
+          }
+
        },
     },
   }

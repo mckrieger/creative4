@@ -1,7 +1,8 @@
 <template>
   <div class="game">
     <controls/>
-    <board/>
+    <board v-if=" status==='playing' "/>
+    <results v-else/>
     <score/>
 
   </div>
@@ -10,23 +11,30 @@
 
 
 <script>
+import store from '../store';
 import Board from './Board';
 import Controls from './Controls';
 import Score from './Score';
+import Results from './Results';
 
 
   export default {
     name: 'Game',
-    data() {
-      return {
-        gameState: '',
+    computed: {
+      status: function() {
+        return store.getters.status;
       }
     },
     components: {
       Board,
       Controls,
       Score,
+      Results,
     },
+    created: function() {
+      store.dispatch('setupItems');
+      store.dispatch('getItems');
+   },
   }
 </script>
 

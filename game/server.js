@@ -14,112 +14,204 @@ let currentGameStatus= '';
 let score = 0;
 let power = false;
 let moves = 0;
+let powerCounter = 0;
+
+
 function moveUp(index){
-  if (index - 10 < 0) {
-    target = index + 90;
+  if (index < 10) {
+    let target = index + 90;
+    console.log('target is ' + target);
+    return target;
   } else {
-    target = index -10;
+    let target = index -10;
+    console.log('target is ' + target);
+    return target;
   }
 }
 function moveDown(index){
-  if (index + 10 > 99) {
-    target = index - 90;
+  if (index > 89) {
+    let target =  index - 90;
+    console.log('target is ' + target);
+    return target;
   } else {
-    target = index +10;
+    let target = index +10;
+    console.log('target is ' + target);
+    return target;
   }
 }
 function moveLeft(index){
   if (index % 10 == 0) {
-    target = index + 9;
+    let target = index + 9;
+    console.log('target is ' + target);
+    return target;
   } else {
-    target = index -1;
+    let target = index -1;
+    console.log('target is ' + target);
+    return target;
+
   }
 }
 function moveRight(index){
   if (index % 10 == 9) {
-    target = index - 9;
+    let target = index - 9;
+    console.log('target is ' + target);
+    return target;
   } else {
-    target = index + 1;
+    let target =  index + 1;
+    console.log('target is ' + target);
+    return target;
   }
 }
 
 function swap(index, target){
+  if (target === undefined || target === -1){
+    console.log("target of swap is undefined or -1");
+    return;
+  }
+  if (index === undefined || index === -1){
+    console.log("index in swap is undefined or -1");
+    return;
+  }
+  console.log('target is defined in swap as ' + target);
   let object = items[index];
   let check = items[target];
-  if (object == 'you'){
-    if (check == 'empty'){
+  if (object === 'you'){
+    if (check === 'empty'){
       items[index] = 'empty';
       items[target] = object;
+      score += 10;
       theyMove(target);
-    } else if (check == 'power'){
+    } else if (check === 'power'){
       items[index] = 'empty';
       items[target] = object;
       power = true;
+      score += 10;
+      powerStart();
       theyMove(target);
-    } else if (check == 'them'){
-      items[index] = 'empty';
-      currentGameStatus = 'lost';
-      endGame();
-    } else if (check == 'goal'){
+    } else if (check === 'them'){
+      if (!power){
+        items[index] = 'empty';
+        currentGameStatus = 'lost';
+        score += 10;
+        endGame();
+      } else {
+        items[index] = 'empty';
+        items[target] = object;
+        score += 20;
+        theyMove(target);
+      }
+    } else if (check === 'goal'){
       items[index] = 'empty';
       items[target] = object;
       currentGameStatus = 'won';
+      score += 50;
       endGame();
     } else {
-      console.log("unidentified tile");
+      console.log("unidentified tile " + check + " at " + target);
+      console.log(items);
       return;
     }
-  } else if (object == 'them'){
-    if (check == 'empty'){
+  } else if (object === 'them'){
+    if (check === 'empty'){
       items[index] = 'empty';
       items[target] = object;
 
-    } else if (check == 'power'){
+    } else if (check === 'power'){
       items[index] = 'empty';
       items[target] = object;
 
-    } else if (check == 'them'){
+    } else if (check === 'them'){
       //they don't move if they would run into eachother
 
-    } else if (check=='you'){
-      items[index] == 'empty';
-      items[target] == object;
-      currentGameStatus = 'lost';
-      endGame();
+    } else if (check==='you'){
+      if (power === false){
+        items[index] = 'empty';
+        items[target] = object;
+        currentGameStatus = 'lost';
+        endGame();
+      } else {
+        items[index] = 'empty'
+      }
     } else if (check == 'goal'){
       //they can't stand on goal
     } else {
-      console.log("unidentified tile");
+      console.log("unidentified tile " + check + " at " + target);
+      console.log(items);
       return;
     }
   }
 }
-moveItems = function(move){
+
+function powerStart(){
+  powerCounter = 5;
+  power = true;
+}
+
+function moveItems(move){
+  if (currentGameStatus != 'playing'){
+    console.log("don't move when you aren't playing.");
+    return false;
+  }
+  console.log('moving item');
   let index = items.indexOf('you');
-  let target;
+  console.log('you are at index ' + index);
   if (index < 0 || index > 99){
     console.log("You are out of bounds");
     return;
   }
   if (move === 'left'){
-    moveLeft(index);
+    swap(index, moveLeft(index));
   } else if (move  === 'right') {
-    moveRight(index);
+    swap(index, moveRight(index));
   } else if (move === 'up'){
-    moveUp(index);
+    swap(index, moveUp(index));
   }else if (move === 'down'){
-    moveDown(index);
+    swap(index, moveDown(index));
   }else {
     console.log("move direction not recognized");
     console.log(move);
     return;
   }
 
-  score += 10;
   moves ++;
+
+  powerCounter--;
+  if (powerCounter < 0) power = false;
+
+  if (moves === 10){
+    addRandom('goal');
+  }
+  if (moves %7 == 0){
+    addThem();
+    addRandom('power');
+  }
+
+  return true;
 }
 
-endGame = function() {
+function addThem() {
+  if (items[0] === 'empty'){
+    items[0] = 'them';
+  } else if (items[9] === 'empty'){
+    items[9] = 'them';
+  } else if (items[99] === 'empty'){
+    items[99] = 'them';
+  }
+}
+
+function addRandom(text) {
+  let found = false;
+  let spot = -1;
+  while (!found){
+    spot = Math.floor(Math.random() * 100);
+    if (items[spot] === 'empty'){
+      found = true;
+    }
+  }
+  items[spot] = text;
+}
+
+function endGame() {
   if (currentGameStatus == 'won'){
     console.log("You won!");
   } else if (currentGameStatus == 'lost'){
@@ -127,6 +219,12 @@ endGame = function() {
   } else {
     console.log("End of game, but not sure why");
   }
+
+  if (score > highscore){
+    highscore = score;
+  }
+
+  return true;
 }
 
 theyMove = function(you) {
@@ -138,33 +236,30 @@ theyMove = function(you) {
   }
 
   for (var i=0; i<indices.length; i++){
-    let distance = indices[i] -target;
-    let targetx = target % 10;
+    let distance = indices[i] - you;
+    let targetx = you % 10;
     let themx = indices[i] % 10;
-    let targety = parseInt(target / 10);
+    let targety = parseInt(you / 10);
     let themy = parseInt(indices[i] / 10);
 
     let distancex = Math.abs(themx - targetx);
     let distancey = Math.abs(themy - targety);
     //TODO add wrap-around world logic.
+    console.log('index of them is ' + indices[i]);
     if (distancex > distancey){
       if (themx - targetx > 0){
-        moveLeft(indices[i]);
+        swap(indices[i], moveLeft(indices[i]));
       } else {
-        moveRight(indices[i]);
+        swap(indices[i], moveRight(indices[i]));
       }
     } else {
       if (themy - targety > 0){
-        moveUp(indices[i]);
+        swap(indices[i], moveUp(indices[i]));
       } else {
-        moveDown(indices[i]);
+        swap(indices[i], moveDown(indices[i]));
       }
     }
   }
-}
-
-function moveDown(index){
-  object = items[index];
 }
 
 app.get('/api/setup', (req, res) => {
@@ -180,11 +275,25 @@ app.get('/api/setup', (req, res) => {
   items[90] = 'power';
   console.log('finished setting up.')
   currentGameStatus = 'playing';
-  res.send(items);
+  res.send({
+    items: items,
+    highscore:highscore,
+    status: currentGameStatus,
+    score: score,
+    power: power,
+    moves: moves
+  });
 });
 
 app.get('/api/items', (req, res) => {
-  res.send(items);
+  res.send({
+    items: items,
+    highscore:highscore,
+    status: currentGameStatus,
+    score: score,
+    power: power,
+    moves: moves
+  });
 });
 
 app.put('/api/items/:id', (req, res) => {
@@ -211,8 +320,19 @@ app.post('/api/items', (req, res) => {
 
 app.post('/api/move', (req, res) => {
   let move = req.body.direction;
-  moveItems(move);
-  res.send(items);
+  console.log('moving' + move);
+  if (currentGameStatus === 'playing' && moveItems(move)) {
+    res.send({
+      items: items,
+      highscore:highscore,
+      status: currentGameStatus,
+      score: score,
+      power: power,
+      moves: moves
+    });
+  } else {
+    res.sendStatus(400);
+  }
 });
 
 app.delete('/api/items/:id', (req, res) => {

@@ -1,6 +1,6 @@
 <template>
   <div class="board">
-    <div v-for="item in items" v-bind:class="{you: item == 'you', them: item=='them', empty: item=='empty', power: item=='power'}" >
+    <div v-for="item in items" v-bind:class="{you: item === 'you', them: item=='them', empty: item==='empty', power: item==='power', powerful: power===true, goal: item==='goal'}" >
     </div>
   </div>
 </template>
@@ -13,13 +13,17 @@ import store from '../store';
     name: 'Board',
     data() {
       return {
-        move: '',
+
       }
     },
     computed: {
       items: function() {
         return store.getters.items;
+      },
+      power: function() {
+        return store.getters.power;
       }
+
     },
      methods: {
        getItems: function() {
@@ -45,7 +49,7 @@ import store from '../store';
        },
     },
     created: function() {
-      store.dispatch('setupItems');
+      store.dispatch('getItems');
    },
 
   }

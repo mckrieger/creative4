@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import store from '../store';
 
   export default {
     name: 'Score',
@@ -21,15 +22,20 @@
     },
     data() {
       return {
-        highscore: 0,
-        score: 0,
-        moves: 0,
+
       }
     },
     computed: {
-      /*items: function() {
-        return this.$store.getters.items;
-      },*/
+      score: function() {
+      return store.getters.score;
+      },
+      highscore: function() {
+        return store.getters.highscore;
+      },
+      moves: function() {
+        return store.getters.moves;
+      }
+
     },
      methods: {
        getItems: function() {

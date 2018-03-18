@@ -7,16 +7,30 @@ Vue.use(Vuex);
 
 const store= new Vuex.Store({
   state: {
-    items: ['empty','empty','you'],
+    items: [],
     score: 0,
-    power: '',
+    power: false,
+    highscore: 0,
+    status: 'playing',
+    moves: 0,
   },
   getters: {
     items: state => state.items,
+    score: state => state.score,
+    power: state => state.power,
+    highscore: state => state.highscore,
+    status: state => state.status,
+    moves: state => state.moves,
   },
   mutations: {
-    setItems: (state, {items}) => {
-      state.items = items;
+    setItems: (state, data) => {
+      state.items = data.items;
+      state.score = data.score;
+      state.power = data.power;
+      state.highscore = data.highscore;
+      state.moves = data.moves;
+      state.status = data.status;
+
       console.log('items have been set');
     },
   },
@@ -26,16 +40,17 @@ const store= new Vuex.Store({
       axios.get("/api/setup").then(response => {
         console.log("got Response");
         console.log(response.data);
-        commit('setItems', {items:response.data});
-      	return true;
-      }).then(console.log(this.getters.items)).catch(err => {
+        context.commit('setItems', response.data);
+        console.log('pickMe');
+      }).catch(err => {
       });
     },
     getItems: function(context) {
       console.log("getting items");
       axios.get("/api/items").then(response => {
         console.log('have items');
-	       context.commit('setItems', {items: response.data});
+	       context.commit('setItems', response.data);
+         console.log('no, me');
       }).catch(err => {
       });
     },
