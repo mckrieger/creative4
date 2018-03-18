@@ -1,6 +1,6 @@
 <template>
   <div class="board">
-    <div v-for="item in items" v-bind:class="{you: item === 'you', them: item=='them', empty: item==='empty', power: item==='power', powerful: power===true, goal: item==='goal'}" >
+    <div v-for="item in items" v-bind:class="{you: item === 'you', them: item=='them', empty: item==='empty', power: item==='power', powerful: powerful && item === 'you', goal: item==='goal'}" >
     </div>
   </div>
 </template>
@@ -20,7 +20,7 @@ import store from '../store';
       items: function() {
         return store.getters.items;
       },
-      power: function() {
+      powerful: function() {
         return store.getters.power;
       }
 
@@ -84,7 +84,22 @@ import store from '../store';
     background-color: yellow;
     color: yellow;
   }
-
-
+  .powerful {
+    background-color: green;
+    animation-name: color;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    }
+    @keyframes color {
+    0% {
+      background-color: green;
+    }
+    50% {
+      background-color: blue;
+    }
+    100 {
+      background-color: green;
+    }
+    }
 
 </style>

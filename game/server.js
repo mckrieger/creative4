@@ -97,7 +97,7 @@ function swap(index, target){
       } else {
         items[index] = 'empty';
         items[target] = object;
-        score += 20;
+        score += 30;
         theyMove(target);
       }
     } else if (check === 'goal'){
@@ -131,6 +131,7 @@ function swap(index, target){
         endGame();
       } else {
         items[index] = 'empty'
+        score += 20;
       }
     } else if (check == 'goal'){
       //they can't stand on goal
@@ -182,8 +183,25 @@ function moveItems(move){
     addRandom('goal');
   }
   if (moves %7 == 0){
+    let themCount = 0;
+    let powerCubes = 0;
+    for (let i=0; i<items.length; i++){
+      if (items[i] === 'power') powerCubes +=1;
+      if (items[i] === 'them') themCount +=1;
+    }
+
     addThem();
-    addRandom('power');
+    if (themCount < moves/10){
+      addThem();
+    }
+    if (themCount === 0){
+      addThem();
+    }
+
+
+    if (powerCubes < 2){
+      addRandom('power');
+    }
   }
 
   return true;

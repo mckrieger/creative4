@@ -56,8 +56,8 @@ import store from '../store';
 
  }
  #buttons {
-    height: 40%;
-    padding-top:18%;
+    height: 30%;
+    padding-top:8%;
  }
 
  #up {
