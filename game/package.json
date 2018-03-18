@@ -2,6 +2,7 @@
   "name": "game",
   "version": "1.0.0",
   "description": "A Vue.js project",
+  "main": "index.js",
   "author": "McKean Krieger <mckean.krieger@gmail.com>",
   "private": true,
   "scripts": {

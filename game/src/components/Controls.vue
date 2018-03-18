@@ -34,6 +34,7 @@ import store from '../store';
        makeMove: function(direction) {
           store.dispatch('makeMove', direction);
           store.dispatch('getItems');
+          console.log(require.main.filename);
        },
     },
   }
