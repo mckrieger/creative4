@@ -199,7 +199,7 @@ function moveItems(move){
     }
 
 
-    if (powerCubes < 2){
+    if (powerCubes < 1){
       addRandom('power');
     }
   }
