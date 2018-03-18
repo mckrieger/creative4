@@ -53,11 +53,12 @@ import store from '../store';
     background-color:gray;
     vertical-align: center;
     text-align:center;
+    border: 2px solid lightGray;
 
  }
  #buttons {
-    height: 30%;
-    padding-top:8%;
+    height: 10%;
+    padding-top:20px;
  }
 
  #up {
@@ -77,12 +78,9 @@ import store from '../store';
  transform: rotate(90deg);
 
  }
- #space {
-  width: 40%;
- }
 
  img {
-    width: 7vw;
+    width: 6vw;
     opacity: 0.5;
     filter: alpha(opacity=50);
     transition:opacity .7s;

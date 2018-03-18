@@ -4,6 +4,7 @@
       they're mostly just chasing you, and if they catch you, they'll kill you.
       But they only move when you do. Sometimes
       it takes some time before the <p class="goal">goal</p> shows up, so use the <p class="power">power-ups</p> to fight back.
+      <p class="secret">(You can go through walls)</p>
       </span></div>
     <div class="stats">
       <div class="moves"><h3>Moves Taken: {{moves}}</h3></div>
@@ -70,6 +71,12 @@ import store from '../store';
  .scoreboard {
     position:relative;
     background-color:gray;
+    border: 2px solid lightGray;
+
+ }
+
+ .secret {
+  color: #858989;
  }
 
  .you {
@@ -100,7 +107,7 @@ import store from '../store';
  .description {
     font-family: 'Exo', sans-serif;
     margin:5px;
-    margin-bottom:40%;
+    margin-bottom:20%;
     margin-top:5%
  }
  .stats {

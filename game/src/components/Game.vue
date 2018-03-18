@@ -40,7 +40,7 @@ import Results from './Results';
 
 <style scoped>
  .game {
-    background-color:lightGray;
+    background-color:#333;
     width:100vw;
     height: 80vh;
     padding:2px;

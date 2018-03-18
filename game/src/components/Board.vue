@@ -1,8 +1,10 @@
 <template>
+<div class= "surround">
   <div class="board">
     <div v-for="item in items" v-bind:class="{you: item === 'you', them: item=='them', empty: item==='empty', power: item==='power', powerful: powerful && item === 'you', goal: item==='goal'}" >
     </div>
   </div>
+</div>
 </template>
 
 
@@ -56,6 +58,11 @@ import store from '../store';
 </script>
 
 <style scoped>
+.surround{
+  width: 100%;
+  height: 100%;
+}
+
  .board {
      background-color:darkGray;
      display: grid;
@@ -63,6 +70,9 @@ import store from '../store';
      grid-template-columns: repeat(10, 1fr);
      grid-template-rows: repeat(10, 1fr);
      padding:2px;
+     width: 40vw;
+     height:100%;
+     margin:auto;
      }
   .you {
     background-color: green;
